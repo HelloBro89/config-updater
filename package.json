@@ -6,12 +6,32 @@
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-electron\"",
     "start-react": "cd src/renderer && npm start",
-    "start-electron": "electron ."
+    "start-electron": "electron .",
+    "build-react": "cd src/renderer && npm run build",
+    "build": "npm run build-react && electron-builder",
+    "build-prod": "npm run build-react && npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.1.2",
-    "electron": "^33.2.1"
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.example.configupdater",
+    "productName": "ConfigUpdater",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/renderer/build/**",
+      "src/index.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    }
   }
 }
