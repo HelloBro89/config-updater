@@ -2,14 +2,15 @@
   "name": "config-updater",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "main.js",
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-electron\"",
     "start-react": "cd src/renderer && npm start",
     "start-electron": "electron .",
     "build-react": "cd src/renderer && npm run build",
     "build": "npm run build-react && electron-builder",
-    "build-prod": "npm run build-react && npm run build"
+    "build-prod": "npm run build-react && npm run build",
+    "test": "electron-builder"
   },
   "author": "",
   "license": "ISC",
@@ -26,12 +27,11 @@
     },
     "files": [
       "src/renderer/build/**",
-      "src/index.js",
+      "main.js",
       "package.json"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
+      "target": "nsis"
     }
   }
 }
