@@ -1,6 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
+const CONFIG = require('./config/env.config');
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  sendMessage: (channel, data) => ipcRenderer.send(channel, data),
-  onMessage: (channel, callback) => ipcRenderer.on(channel, (event, ...args) => callback(...args)),
+console.log('Preload script loaded');
+console.log(CONFIG);
+
+contextBridge.exposeInMainWorld('api', {
+  getMessage: () => ipcRenderer.invoke('get:message'),
 });

@@ -10,7 +10,7 @@
     "build-react": "cd src/renderer && npm run build",
     "build": "npm run build-react && electron-builder",
     "build-prod": "npm run build-react && npm run build",
-    "test": "electron-builder"
+    "test-build": "electron-builder"
   },
   "author": "",
   "license": "ISC",
@@ -28,10 +28,15 @@
     "files": [
       "src/renderer/build/**",
       "main.js",
-      "package.json"
+      "package.json",
+      "config/env.config.js",
+      "preload.js"
     ],
     "win": {
       "target": "nsis"
     }
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }

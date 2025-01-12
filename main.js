@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const CONFIG = require('./config/env.config');
 
 let mainWindow;
 
@@ -9,13 +10,21 @@ const createWindow = () => {
     height: 800,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
-
   mainWindow.webContents.openDevTools();
-  mainWindow.loadFile('./src/renderer/build/index.html');
-  // mainWindow.loadURL(path.join(__dirname, 'renderer', 'build', 'index.html'));
+  if (CONFIG.ENV === 'dev') {
+    mainWindow.loadURL(CONFIG.LOAD_FILE_PATH);
+  } else {
+    mainWindow.loadFile(CONFIG.LOAD_FILE_PATH);
+  }
 };
+
+ipcMain.handle('get:message', () => {
+  return 'Hello from backend!';
+});
 
 app.whenReady().then(() => {
   createWindow();
